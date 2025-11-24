@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import "./globals.css"
+import BlockBackground from "@/components/BlockBackground"
 
 export const metadata: Metadata = {
   title: "Kieran Klaassen",
@@ -15,6 +16,21 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <BlockBackground />
+
+        <svg width="0" height="0" style={{ position: 'absolute' }}>
+          <defs>
+            <filter id="noise">
+              <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" seed="5" />
+              <feComponentTransfer>
+                <feFuncA type="discrete" tableValues="0 0 0 0 1" />
+              </feComponentTransfer>
+              <feColorMatrix type="saturate" values="0.2" />
+              <feBlend mode="soft-light" in="SourceGraphic" in2="SourceGraphic" />
+            </filter>
+          </defs>
+        </svg>
+
         <header className="site-header">
           <div className="container">
             <div className="header-inner">

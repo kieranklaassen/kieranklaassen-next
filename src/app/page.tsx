@@ -17,7 +17,7 @@ export default function Home() {
       <section className="hero">
         <div className="container">
           <h1 className="hero-title">
-            <span>Thoughts on</span>
+            <span style={{ fontWeight: 300, fontStyle: 'italic' }}>Thoughts on</span>
             <span>creativity<span className="accent">,</span></span>
             <span>code<span className="accent">,</span></span>
             <span>& craft<span className="accent">.</span></span>

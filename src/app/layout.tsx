@@ -1,7 +1,21 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import { Fraunces, Inter } from 'next/font/google'
 import "./globals.css"
 import BlockBackground from "@/components/BlockBackground"
+
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  variable: '--font-fraunces',
+  weight: ['300', '400', '600', '700', '900'],
+  display: 'swap',
+})
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: "Kieran Klaassen",
@@ -14,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
       <body>
         <BlockBackground />
 

@@ -13,11 +13,18 @@ export default function BlockBackground() {
     if (!ctx) return
 
     const squareSize = 134
-    // Single base color like the original - random RGB on mount
-    const baseColor: [number, number, number] = [
-      Math.floor(Math.random() * 256),
-      Math.floor(Math.random() * 256),
-      Math.floor(Math.random() * 256),
+    // Vibrant color palette - electric and bold
+    const colorPalette: Array<[number, number, number]> = [
+      [255, 71, 133],   // Hot pink
+      [138, 43, 226],   // Blue violet
+      [255, 140, 0],    // Dark orange
+      [0, 191, 255],    // Deep sky blue
+      [255, 20, 147],   // Deep pink
+      [123, 104, 238],  // Medium slate blue
+      [255, 69, 0],     // Orange red
+      [30, 144, 255],   // Dodger blue
+      [255, 105, 180],  // Hot pink
+      [147, 51, 234],   // Purple
     ]
 
     let squares: Array<{
@@ -27,6 +34,7 @@ export default function BlockBackground() {
       targetOpacity: number
       gradientOffset: number
       hovered: boolean
+      color: [number, number, number]
     }> = []
 
     let animationFrame: number
@@ -46,15 +54,17 @@ export default function BlockBackground() {
       squares = []
       for (let x = 0; x < canvas.width; x += squareSize) {
         for (let y = 0; y < canvas.height; y += squareSize) {
-          const gradientOffset = random(-30, 30)
-          const initialOpacity = random(255)
+          const gradientOffset = random(-40, 40)
+          const initialOpacity = random(140, 220)  // Even more vibrant
+          const randomColor = colorPalette[Math.floor(Math.random() * colorPalette.length)]
           squares.push({
             x,
             y,
             opacity: initialOpacity,
-            targetOpacity: initialOpacity, // Same as initial - no movement until hover
+            targetOpacity: initialOpacity,
             gradientOffset,
             hovered: false,
+            color: randomColor,
           })
         }
       }
@@ -69,7 +79,7 @@ export default function BlockBackground() {
           square.opacity += (square.targetOpacity - square.opacity) * 0.05
         }
 
-        // Draw gradient line by line like original
+        // Draw gradient line by line
         for (let i = 0; i < squareSize; i++) {
           const gradientAlpha = map(
             i,
@@ -78,7 +88,7 @@ export default function BlockBackground() {
             square.opacity,
             square.opacity - 40 + square.gradientOffset
           )
-          ctx.fillStyle = `rgba(${baseColor[0]}, ${baseColor[1]}, ${baseColor[2]}, ${gradientAlpha / 255})`
+          ctx.fillStyle = `rgba(${square.color[0]}, ${square.color[1]}, ${square.color[2]}, ${gradientAlpha / 255})`
           ctx.fillRect(square.x, square.y + i, squareSize, 1)
         }
       })
